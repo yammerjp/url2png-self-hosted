@@ -29,6 +29,9 @@ const main = async () => {
     });
 
     app.get('/', async function (req, res) {
+      if (typeof req.query.url_base64url !== 'string') {
+        return res.status(400).end()
+      }
       const url = decodeBase64Url(req.query.url_base64url)
         if (!url) {
             return res.end('Please specify url like this: ?url=example.com');
